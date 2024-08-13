@@ -84,7 +84,7 @@ const Entries: FC = () => {
             //   label="Message"
             variant="outlined"
             multiline
-            rows={8}
+            rows={20}
             fullWidth
             required
             value={entries.join('\n')} // Join entries with newlines for display

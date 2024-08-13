@@ -36,11 +36,26 @@ export const entrySlice = createSlice({
         return 0;
       });
     },
+    removeEmptyEntries: (state) => {
+      state.entries = state.entries.filter((entry) => entry.trim() !== '');
+    },
+    removeEntry: (state, action: PayloadAction<number>) => {
+      const indexToRemove = action.payload;
+      if (indexToRemove >= 0 && indexToRemove < state.entries.length) {
+        state.entries.splice(indexToRemove, 1);
+      }
+    },
   },
 });
 
-export const { toggleOrder, updateEntries, shuffleEntries, sortEntries } =
-  entrySlice.actions;
+export const {
+  toggleOrder,
+  updateEntries,
+  shuffleEntries,
+  sortEntries,
+  removeEmptyEntries,
+  removeEntry,
+} = entrySlice.actions;
 
 const EntryReducer = entrySlice.reducer;
 

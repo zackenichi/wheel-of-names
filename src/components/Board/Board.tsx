@@ -1,7 +1,8 @@
 import { Box, Grid } from '@mui/material';
 import { FC } from 'react';
 import { Entries } from '../Entries';
-import { Wheel } from '../Wheel';
+import { Roulette } from '../Roulette';
+import { WinnerModal } from '../WinnerModal';
 
 const Board: FC = () => {
   return (
@@ -13,12 +14,13 @@ const Board: FC = () => {
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} md={8}>
-          <Wheel />
+          <Roulette />
         </Grid>
         <Grid item xs={12} md={4}>
           <Entries />
         </Grid>
       </Grid>
+      <WinnerModal />
     </Box>
   );
 };
