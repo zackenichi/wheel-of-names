@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { FC, Suspense } from 'react';
 import { Header } from '../Header';
+import { Board } from '../Board';
 
 const App: FC = () => {
   return (
@@ -27,7 +28,7 @@ const App: FC = () => {
         }}
       >
         <Suspense fallback={<div>Loading...</div>}></Suspense>
-        Main
+        <Board />
       </Box>
     </Box>
   );

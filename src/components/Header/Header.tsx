@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 const Header: FC = () => {
   return (
-    <AppBar position="fixed" elevation={0}>
+    <AppBar position="static">
       <Grid container justifyContent="center">
         <Grid item>
           <Typography variant="h1">Randomizer</Typography>
