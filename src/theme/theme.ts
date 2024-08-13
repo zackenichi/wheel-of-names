@@ -31,14 +31,14 @@ const componentOverrides: ThemeOptions['components'] = {
       },
       // menu
       h3: {
-        fontSize: '14px',
+        fontSize: '30px',
         fontWeight: 600,
         color: colors.secondary,
         '@media (max-width: 768px)': {
-          fontSize: '1rem',
+          fontSize: '25rem',
         },
         '@media (max-width: 400px)': {
-          fontSize: '0.6rem',
+          fontSize: '22px',
         },
       },
 
@@ -55,13 +55,13 @@ const componentOverrides: ThemeOptions['components'] = {
       },
       body1: {
         fontFamily: 'Roboto Flex, sans-serif',
-        fontSize: '16px',
+        fontSize: '20px',
         color: colors.text,
         '@media (max-width: 768px)': {
-          fontSize: '14px',
+          fontSize: '16px',
         },
         '@media (max-width: 400px)': {
-          fontSize: '14px',
+          fontSize: '16px',
         },
       },
       body2: {
@@ -105,6 +105,9 @@ const componentOverrides: ThemeOptions['components'] = {
         fontWeight: 800,
         fontFamily: 'Blissful Thinking, sans-serif',
         // fontSize: '1.2rem',
+        '&:disabled': {
+          backgroundColor: colors.sub,
+        },
       },
     },
   },
