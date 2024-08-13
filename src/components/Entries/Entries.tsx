@@ -2,31 +2,43 @@ import { Button, Container, Grid, TextField, Typography } from '@mui/material';
 import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  shuffleEntries,
+  sortEntries,
+  toggleOrder,
+  updateEntries,
+} from '../../features/entry';
+import { RootState } from '../../store/store';
 
 const Controls: FC = () => {
-  const [order, setOrder] = useState('asc');
+  const dispatch = useDispatch();
+  const order = useSelector((state: RootState) => state.entry.order);
 
-  const changeOrder = () => {
-    // toggle order sort
-    setOrder(order === 'asc' ? 'desc' : 'asc');
-    // change order
+  const handleOrderChange = () => {
+    dispatch(toggleOrder()); // Toggle order first
+    dispatch(sortEntries()); // Then sort entries
   };
 
-  // if shuffle is clicked, shuffle the entries,
-  // if sort is clicked, sort the entries
-  // order is set via click events
+  const handleShuffle = () => {
+    dispatch(shuffleEntries());
+  };
 
   return (
     <Grid container spacing={2}>
       <Grid item>
-        <Button startIcon={<ShuffleRoundedIcon />} variant="contained">
+        <Button
+          startIcon={<ShuffleRoundedIcon />}
+          variant="contained"
+          onClick={handleShuffle}
+        >
           Shuffle
         </Button>
       </Grid>
       <Grid item>
         <Button
-          onClick={changeOrder}
+          onClick={handleOrderChange}
           startIcon={
             order === 'asc' ? (
               <ArrowUpwardRoundedIcon />
@@ -43,24 +55,18 @@ const Controls: FC = () => {
   );
 };
 
+export default Controls;
+
 const Entries: FC = () => {
-  // todo: use state for now, we will change to redux later
-  // Initial value with 7 random names
-  const initialValue = `Alice\nBob\nCharlie\nDavid\nEve\nFrank\nGrace`;
+  const dispatch = useDispatch();
+  const entries = useSelector((state: RootState) => state.entry.entries);
 
-  const [inputValue, setInputValue] = useState(initialValue);
-  const [stringArray, setStringArray] = useState(initialValue.split('\n'));
-
+  // Handle changes to the TextField input
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setInputValue(value);
     const arrayOfStrings = value.split('\n'); // Split input by newlines
-    setStringArray(arrayOfStrings);
+    dispatch(updateEntries(arrayOfStrings)); // Update Redux state
   };
-
-  // test
-
-  console.log(stringArray);
 
   return (
     <Container maxWidth="md">
@@ -81,8 +87,8 @@ const Entries: FC = () => {
             rows={8}
             fullWidth
             required
-            value={inputValue}
-            onChange={handleInputChange}
+            value={entries.join('\n')} // Join entries with newlines for display
+            onChange={handleInputChange} // Update state on input change
           />
         </Grid>
       </Grid>
